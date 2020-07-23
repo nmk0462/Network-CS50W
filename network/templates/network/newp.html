@@ -1,0 +1,15 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	
+</style>
+
+<form action="{% url 'postcreate' %}" method="POST">
+	<h1>Create a New Post here 📝</h1>
+
+<textarea type="text" name="new" rows="4" cols="175"></textarea><br>
+	<button class="btn btn-primary" >Create Post</button>
+</form>
+
+{% endblock %}

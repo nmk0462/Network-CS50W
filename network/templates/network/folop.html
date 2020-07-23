@@ -1,0 +1,52 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+
+<style type="text/css">
+	
+			button
+	{   
+		background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+	}
+</style>
+<script src="{% static 'network/edit.js' %}"></script>
+<ul class="list-group">
+{% for pos in folop %}
+   <div class="container">
+    <li class="list-group-item">Posted by: <a href="{% url 'profilepage' pos.usr %}">{{ pos.usr }}</a>
+    	{% if user.username == pos.usr %}
+<button onclick="save_edit( {{ pos.id }} )" class="btn btn-primary">✏️</button>
+{% endif %}
+   <br> Content: <container id="card-body-{{ pos.id }}">{{ pos.txt }}</container><br>
+Posted on: {{ pos.tmt }}<br>
+
+Likes:<div id="lik-{{ pos.id }}">{{ pos.likes }}</div>
+
+{% if pos.id not in shin %}
+<button onclick="like({{ pos.id }},{{ current1 }})" id="lk-{{ pos.id }}">🤍</button>{% else %}
+<button onclick="unlike({{ pos.id }},{{ current1 }})" id="ulk-{{ pos.id }}">❤️</button>{% endif %}
+</li></div>
+{% endfor %}</ul>
+<div class="pagination">
+    <span class="step-links">
+        {% if folop.has_previous %}
+            <a href="?page=1" class="btn btn-outline-info">&laquo; first</a>
+            <a href="?page={{ folop.previous_page_number }}" class="btn btn-outline-info">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ folop.number }} of {{ folop.paginator.num_pages }}.
+        </span>
+
+        {% if folop.has_next %}
+            <a href="?page={{ folop.next_page_number }}" class="btn btn-outline-info">next</a>
+            <a href="?page={{ folop.paginator.num_pages }}" class="btn btn-outline-info">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
